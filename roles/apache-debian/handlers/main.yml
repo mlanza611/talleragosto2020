@@ -1,5 +1,5 @@
 ---
-# handlers file for roles/apache-centos
+# handlers file for roles/apache-debian
 #
 - name: Restart apache
   service:

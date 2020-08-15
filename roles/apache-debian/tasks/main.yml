@@ -20,3 +20,12 @@
   loop:
     - http
     - https
+ 
+- name: Create Loadbalancer configuration for Debian distributions
+  template:
+    src: templates/loadbalancer.j2
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    owner: root
+    mode: '0644'
+  when: ansible_facts['os_family'] == "Debian"
+  notify: Restart apache

@@ -1,33 +1,42 @@
 ---
 # tasks for apache-centos role
-- name: Install Apache Server
-  yum:
-    name: httpd
-    state: latest
+ - name: Install Apache Server
+   yum:
+     name: httpd
+     state: latest
 
-- name: Create virtualhost config directory
-  file:
-   path: /etc/httpd/vhost.d
-   state: directory
-   mode: '0755'
+ - name: Create virtualhost config directory
+   file:
+    path: /etc/httpd/vhost.d
+    state: directory
+    mode: '0755'
 
-- name: Add virtualhost config directory to httpd.conf
-  lineinfile:
-    path: /etc/httpd/conf/httpd.conf
-    line: IncludeOptional vhost.d/*.conf 
+ - name: Add virtualhost config directory to httpd.conf
+   lineinfile:
+     path: /etc/httpd/conf/httpd.conf
+     line: IncludeOptional vhost.d/*.conf 
 
-- name: Start and enable services
-  service:
-    name: httpd
-    state: started
-    enabled: yes        
+ - name: Start and enable services
+   service:
+     name: httpd
+     state: started
+     enabled: yes        
  
-- name: Configure firewall
-  firewalld: 
-    service: "{{ item }}"
-    state: enabled
-    permanent: yes
-    immediate: yes
-  loop:
-    - http
-    - https
+ - name: Configure firewall
+   firewalld: 
+     service: "{{ item }}"
+     state: enabled
+     permanent: yes
+     immediate: yes
+   loop:
+     - http
+     - https
+  
+ - name: Create Loadbalancer configuration for RedHat distributions
+   template:
+     src: templates/loadbalancer.j2
+     dest: /etc/httpd/vhost.d/loadbalancer.conf
+     owner: root
+     mode: '0644'
+   when: ansible_facts['os_family'] == "RedHat"
+   notify: Restart httpd

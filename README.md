@@ -37,16 +37,6 @@ Including an example of how to use your role (for instance, with variables passe
          -  role: apache-debian
             when: ansible_facts['os_family'] == "Debian"
 
-      tasks:
-      - name: Create Loadbalancer configuration
-        template:
-          src: templates/loadbalancer.j2
-          dest: /etc/httpd/vhost.d/loadbalancer.conf
-          owner: root
-          mode: '0644'
-        when: ansible_facts['os_family'] == "RedHat"
-        notify: Restart httpd  
-
 License
 -------
 
