@@ -1,0 +1,6 @@
+---
+#Variables file for loadbalancer configuration
+nombre_cluster: balanceador
+puerto1: 8080
+puerto2: 8080
+red_autorizada: 192.168.1.0/24

@@ -1,2 +1,8 @@
 ---
 # handlers file for roles/apache-centos
+#
+- name: Restart apache
+  service:
+    name: apache2
+    state: restarted
+    enabled: yes
