@@ -1,7 +1,7 @@
 Role Name
 =========
 
-This role is to install and execute a webserver in CentOS and Ubuntu.
+The objective of the roles apache-centos and apache-debian, are install and execute a webserver in CentOS and Ubuntu.
 
 Role Variables
 --------------
